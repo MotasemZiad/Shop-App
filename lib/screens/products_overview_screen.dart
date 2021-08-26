@@ -56,7 +56,6 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
                 Icons.shopping_cart,
               ),
               onPressed: () {
-                print('Cart Icon has been pressed!');
                 Navigator.pushNamed(context, CartScreen.routeName);
               },
             ),

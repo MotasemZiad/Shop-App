@@ -11,24 +11,39 @@ class ProductsGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productsProvider = Provider.of<ProductsProvider>(context);
+    bool isFavoriteEmpty = productsProvider.favoriteItems.isEmpty;
     final products = _showFavorites
-        ? productsProvider.favoriteItems
+        ? isFavoriteEmpty
+            ? null
+            : productsProvider.favoriteItems
         : productsProvider.items;
-    return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 3 / 2,
-        crossAxisSpacing: 4.0,
-        mainAxisSpacing: 6.0,
-      ),
-      itemCount: products.length,
-      itemBuilder: (BuildContext context, int index) {
-        return ChangeNotifierProvider.value(
-          value: products[index],
-          child: ProductItem(),
-        );
-      },
-      padding: const EdgeInsets.all(paddingAll),
-    );
+    return products == null
+        ? Center(
+            child: Text(
+              'You haven\'t add any product to favorite',
+              style: TextStyle(
+                fontSize: 24.0,
+                fontWeight: FontWeight.bold,
+                color: colorPrimary,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          )
+        : GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 3 / 2,
+              crossAxisSpacing: 4.0,
+              mainAxisSpacing: 6.0,
+            ),
+            itemCount: products.length,
+            itemBuilder: (BuildContext context, int index) {
+              return ChangeNotifierProvider.value(
+                value: products[index],
+                child: ProductItem(),
+              );
+            },
+            padding: const EdgeInsets.all(paddingAll),
+          );
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 const appName = 'Shop App';
 
-const colorPrimary = Colors.indigo;
+const colorPrimary = Colors.deepPurple;
 const colorAccent = Colors.deepOrange;
 const marginHorizontal = 16.0;
 const marginVertical = 8.0;

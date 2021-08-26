@@ -21,7 +21,9 @@ class _OrderItemState extends State<OrderItem> {
     final products = widget.order.products;
     return Card(
       margin: EdgeInsets.symmetric(
-          horizontal: marginHorizontal, vertical: marginVertical),
+        horizontal: marginHorizontal,
+        vertical: marginVertical,
+      ),
       elevation: cardElevation,
       child: Column(
         children: [
@@ -36,7 +38,7 @@ class _OrderItemState extends State<OrderItem> {
                   ),
                 ),
                 Text(
-                  '\$${widget.order.amount}',
+                  '\$${widget.order.amount.toStringAsFixed(2)}',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: colorPrimary,
@@ -59,7 +61,7 @@ class _OrderItemState extends State<OrderItem> {
           if (_isExpanded)
             Container(
               height: math.min(
-                products.length * 20.0 + 10,
+                products.length * 20.0 + 30,
                 100,
               ),
               padding: EdgeInsets.symmetric(

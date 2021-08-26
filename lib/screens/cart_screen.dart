@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/providers/cart.dart' show Cart;
 import 'package:shop_app/providers/orders.dart';
-import 'package:shop_app/screens/orders_screen.dart';
 import 'package:shop_app/shared/global_widgets.dart';
 import 'package:shop_app/utils/constants.dart';
 import 'package:shop_app/widgets/cart_item.dart';
 
 class CartScreen extends StatelessWidget {
   static const routeName = '/cart';
+
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<Cart>(context);
@@ -49,12 +49,13 @@ class CartScreen extends StatelessWidget {
                     child: ListView.builder(
                     itemBuilder: (context, index) {
                       return CartItem(
-                          id: cart.items.values.toList()[index].id,
-                          productId: cart.items.keys.toList()[index],
-                          imageUrl: cart.items.values.toList()[index].imageUrl,
-                          title: cart.items.values.toList()[index].title,
-                          quantity: cart.items.values.toList()[index].quantity,
-                          price: cart.items.values.toList()[index].price);
+                        id: cart.items.values.toList()[index].id,
+                        productId: cart.items.keys.toList()[index],
+                        imageUrl: cart.items.values.toList()[index].imageUrl,
+                        title: cart.items.values.toList()[index].title,
+                        quantity: cart.items.values.toList()[index].quantity,
+                        price: cart.items.values.toList()[index].price,
+                      );
                     },
                     itemCount: cart.itemCount,
                   ))
@@ -90,21 +91,21 @@ class CartScreen extends StatelessWidget {
                 if (cart.itemCount > 0) {
                   orders.addOrder(cart.items.values.toList(), cart.totalAmount);
                   GlobalWidgets.showSnackBar(
-                    context,
-                    'Successful Order!\nCart has been cleaned',
-                    Colors.green,
-                    1500,
+                    context: context,
+                    text: 'Successful Order!\nCheck out your orders',
+                    backgroundColor: Colors.green,
+                    duration: 2500,
                   );
-                  Navigator.of(context).pushNamed(OrdersScreen.routeName);
+                  cart.clearCart();
                 } else {
                   GlobalWidgets.showSnackBar(
-                    context,
-                    'Your cart is empty!\nTry to add some products to the cart.',
-                    Colors.red,
-                    1500,
+                    context: context,
+                    text:
+                        'Your cart is empty!\nTry to add some products to the cart.',
+                    backgroundColor: Colors.red,
+                    duration: 2500,
                   );
                 }
-                cart.clearCart();
               },
               child: Text(
                 'ORDER NOW!',

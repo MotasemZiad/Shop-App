@@ -42,18 +42,20 @@ class ProductItem extends StatelessWidget {
                     value.toggleFavorite();
                     if (product.isFavorite) {
                       GlobalWidgets.showSnackBar(
-                        context,
-                        '${product.title} Product has been added to favorite',
-                        Colors.green,
-                        1500,
+                        context: context,
+                        text:
+                            '${product.title} product has been added to favorite',
+                        backgroundColor: Colors.green,
+                        duration: 1500,
                       );
                     }
                     if (!product.isFavorite) {
                       GlobalWidgets.showSnackBar(
-                        context,
-                        '${product.title} Product has been removed from favorite',
-                        Colors.red,
-                        1500,
+                        context: context,
+                        text:
+                            '${product.title} product has been removed from favorite',
+                        backgroundColor: Colors.red,
+                        duration: 1500,
                       );
                     }
                   });
@@ -69,10 +71,13 @@ class ProductItem extends StatelessWidget {
               cart.addItem(
                   product.id, product.price, product.title, product.imageUrl);
               GlobalWidgets.showSnackBar(
-                context,
-                '${product.title} has been added to cart',
-                Colors.green,
-                1500,
+                context: context,
+                text: '${product.title} has been added to cart',
+                // backgroundColor: Colors.green,
+                actionLabel: 'UNDO',
+                onPressedAction: () {
+                  cart.removeSingleItem(product.id);
+                },
               );
             },
           ),

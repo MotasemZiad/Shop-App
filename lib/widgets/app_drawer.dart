@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/screens/orders_screen.dart';
+import 'package:shop_app/screens/products_overview_screen.dart';
+import 'package:shop_app/screens/user_products_screen.dart';
 import 'package:shop_app/utils/constants.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -28,7 +30,10 @@ class AppDrawer extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-              Navigator.pushReplacementNamed(context, '/');
+              Navigator.pushReplacementNamed(
+                context,
+                ProductsOverviewScreen.routeName,
+              );
             },
             // tileColor: colorPrimary.withOpacity(0.14),
             leading: Icon(
@@ -54,12 +59,37 @@ class AppDrawer extends StatelessWidget {
             },
             // tileColor: colorPrimary.withOpacity(0.14),
             leading: Icon(
-              Icons.online_prediction_rounded,
+              Icons.payment,
               color: colorPrimary,
               size: 30.0,
             ),
             title: Text(
               'Orders',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            trailing: Icon(
+              Icons.arrow_forward_ios,
+              color: colorPrimary,
+            ),
+          ),
+          ListTile(
+            onTap: () {
+              Navigator.pushReplacementNamed(
+                context,
+                UserProductsScreen.routeName,
+              );
+            },
+            // tileColor: colorPrimary.withOpacity(0.14),
+            leading: Icon(
+              Icons.edit,
+              color: colorPrimary,
+              size: 30.0,
+            ),
+            title: Text(
+              'Manage Products',
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
