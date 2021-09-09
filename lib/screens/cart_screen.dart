@@ -86,38 +86,66 @@ class CartScreen extends StatelessWidget {
               backgroundColor: colorPrimary,
             ),
             Spacer(),
-            TextButton(
-              onPressed: () {
-                if (cart.itemCount > 0) {
-                  orders.addOrder(cart.items.values.toList(), cart.totalAmount);
-                  GlobalWidgets.showSnackBar(
-                    context: context,
-                    text: 'Successful Order!\nCheck out your orders',
-                    backgroundColor: Colors.green,
-                    duration: 2500,
-                  );
-                  cart.clearCart();
-                } else {
-                  GlobalWidgets.showSnackBar(
-                    context: context,
-                    text:
-                        'Your cart is empty!\nTry to add some products to the cart.',
-                    backgroundColor: Colors.red,
-                    duration: 2500,
-                  );
-                }
-              },
-              child: Text(
-                'ORDER NOW!',
-                style: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            )
+            OrderButton(cart: cart),
           ],
         ),
       ),
+    );
+  }
+}
+
+class OrderButton extends StatefulWidget {
+  final Cart cart;
+  const OrderButton({@required this.cart});
+
+  @override
+  _OrderButtonState createState() => _OrderButtonState();
+}
+
+class _OrderButtonState extends State<OrderButton> {
+  var _isLoading = false;
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: (widget.cart.totalAmount <= 0 || _isLoading)
+          ? null
+          : () async {
+              if (widget.cart.itemCount > 0) {
+                setState(() {
+                  _isLoading = true;
+                });
+                await Provider.of<Orders>(context, listen: false).addOrder(
+                    widget.cart.items.values.toList(), widget.cart.totalAmount);
+                setState(() {
+                  _isLoading = false;
+                });
+                GlobalWidgets.showSnackBar(
+                  context: context,
+                  text: 'Successful Order!\nCheck out your orders',
+                  backgroundColor: Colors.green,
+                  duration: 2500,
+                );
+                widget.cart.clearCart();
+              }
+              // else {
+              //   GlobalWidgets.showSnackBar(
+              //     context: context,
+              //     text:
+              //         'Your cart is empty!\nTry to add some products to the cart.',
+              //     backgroundColor: Colors.red,
+              //     duration: 2500,
+              //   );
+              // }
+            },
+      child: _isLoading
+          ? CircularProgressIndicator()
+          : Text(
+              'ORDER NOW!',
+              style: TextStyle(
+                color: Theme.of(context).primaryColor,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
     );
   }
 }

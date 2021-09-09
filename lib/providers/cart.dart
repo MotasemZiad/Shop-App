@@ -9,9 +9,9 @@ class CartItem {
   CartItem({
     @required this.id,
     @required this.title,
-    @required this.imageUrl,
     @required this.quantity,
     @required this.price,
+    this.imageUrl = '',
   });
 }
 

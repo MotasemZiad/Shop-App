@@ -7,29 +7,52 @@ import 'package:shop_app/widgets/order_item.dart';
 
 class OrdersScreen extends StatelessWidget {
   static const routeName = '/orders';
+
   @override
   Widget build(BuildContext context) {
-    final orders = Provider.of<Orders>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Your orders'),
       ),
       drawer: AppDrawer(),
-      body: orders.orders.length > 0
-          ? ListView.builder(
-              itemBuilder: (context, index) => OrderItem(orders.orders[index]),
-              itemCount: orders.orders.length,
-            )
-          : Center(
-              child: Text(
-                'You haven\'t make any order yet',
-                style: TextStyle(
-                  color: colorPrimary,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24.0,
-                ),
-              ),
-            ),
+      body: FutureBuilder(
+          future: Provider.of<Orders>(context, listen: false).fetchOrders(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            } else {
+              if (snapshot.hasError) {
+                return Center(
+                  child: Text(
+                    'Error!\n Can\'t load data from the server.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 18.0),
+                  ),
+                );
+              } else {
+                return Consumer<Orders>(
+                  builder: (context, ordersProvider, child) {
+                    return ordersProvider.orders.length > 0
+                        ? ListView.builder(
+                            itemBuilder: (context, index) =>
+                                OrderItem(ordersProvider.orders[index]),
+                            itemCount: ordersProvider.orders.length,
+                          )
+                        : Center(
+                            child: Text(
+                              'You haven\'t make any order yet',
+                              style: TextStyle(
+                                color: colorPrimary,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 24.0,
+                              ),
+                            ),
+                          );
+                  },
+                );
+              }
+            }
+          }),
     );
   }
 }

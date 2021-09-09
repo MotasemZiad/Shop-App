@@ -13,3 +13,9 @@ const borderRadius = 12.0;
 
 const latoFontFamily = 'Lato';
 const antonFontFamily = 'Anton';
+
+// URLs
+const baseUrl = 'https://shop-app-c7d12-default-rtdb.firebaseio.com';
+
+const productsNode = 'products';
+const ordersNode = 'orders';
