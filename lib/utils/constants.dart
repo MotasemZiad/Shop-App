@@ -16,6 +16,12 @@ const antonFontFamily = 'Anton';
 
 // URLs
 const baseUrl = 'https://shop-app-c7d12-default-rtdb.firebaseio.com';
+const signupEndPoint =
+    'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=$apiKey';
+const signinEndPoint =
+    'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=$apiKey';
+
+const apiKey = 'AIzaSyD0oV_xehUKIpPoIpeyPKo-repRo_vSj6s';
 
 const productsNode = 'products';
 const ordersNode = 'orders';

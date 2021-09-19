@@ -21,15 +21,20 @@ class OrderItem {
 
 class Orders with ChangeNotifier {
   List<OrderItem> _orders = [];
-
   List<OrderItem> get orders => [..._orders];
 
+  final String authToken;
+  final String userId;
+
+  Orders(this.authToken, this.userId, this._orders);
+
   Future<void> fetchOrders() async {
-    const url = '$baseUrl/$ordersNode.json';
+    final url = '$baseUrl/$ordersNode/$userId.json?auth=$authToken';
     final response = await http.get(url);
     final List<OrderItem> loadedOrders = [];
     final extractedData = json.decode(response.body) as Map<String, dynamic>;
     if (extractedData == null) return;
+
     extractedData.forEach((orderId, orderData) {
       loadedOrders.add(
         OrderItem(
@@ -37,7 +42,8 @@ class Orders with ChangeNotifier {
           amount: orderData['amount'],
           dateTime: DateTime.parse(orderData['dateTime']),
           products: (orderData['products'] as List<dynamic>).map((item) {
-            CartItem(
+            // ! Please do NOT forget the return keyword... Please!
+            return CartItem(
               id: item['id'],
               title: item['title'],
               quantity: item['quantity'],
@@ -52,7 +58,7 @@ class Orders with ChangeNotifier {
   }
 
   Future<void> addOrder(List<CartItem> cartProducts, double total) async {
-    const url = '$baseUrl/$ordersNode.json';
+    final url = '$baseUrl/$ordersNode/$userId.json?auth=$authToken';
     final timestamp = DateTime.now();
     final response = await http.post(url,
         body: json.encode({

@@ -9,7 +9,7 @@ import 'package:shop_app/widgets/badge.dart';
 import 'package:shop_app/widgets/products_grid_view.dart';
 
 class ProductsOverviewScreen extends StatefulWidget {
-  static const routeName = '/';
+  static const routeName = '/products-overview';
 
   @override
   _ProductsOverviewScreenState createState() => _ProductsOverviewScreenState();

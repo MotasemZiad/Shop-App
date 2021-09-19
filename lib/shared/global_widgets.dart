@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/utils/constants.dart';
 
 class GlobalWidgets {
   static void showSnackBar({
@@ -50,11 +51,21 @@ class GlobalWidgets {
         actions: [
           TextButton(
             onPressed: actionFunction1,
-            child: Text(actionTitle1 ?? ''),
+            child: Text(
+              actionTitle1 ?? '',
+              style: TextStyle(
+                color: colorPrimary,
+              ),
+            ),
           ),
           TextButton(
             onPressed: actionFunction2,
-            child: Text(actionTitle2 ?? ''),
+            child: Text(
+              actionTitle2 ?? '',
+              style: TextStyle(
+                color: colorPrimary,
+              ),
+            ),
           ),
         ],
       ),

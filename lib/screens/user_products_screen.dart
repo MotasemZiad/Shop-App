@@ -12,51 +12,61 @@ class UserProductsScreen extends StatelessWidget {
 
   Future<void> _refreshProducts(BuildContext context) async {
     return await Provider.of<ProductsProvider>(context, listen: false)
-        .fetchProducts();
+        .fetchProducts(true);
   }
 
   @override
   Widget build(BuildContext context) {
-    final productsProvider = Provider.of<ProductsProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('User Products'),
       ),
       drawer: AppDrawer(),
-      body: RefreshIndicator(
-        onRefresh: () {
-          return _refreshProducts(context);
-        },
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: marginHorizontal,
-            vertical: marginVertical,
-          ),
-          child: productsProvider.items.length > 0
-              ? ListView.builder(
-                  itemBuilder: (context, index) => Column(
-                    children: [
-                      UserProductItem(
-                        id: productsProvider.items[index].id,
-                        title: productsProvider.items[index].title,
-                        imageUrl: productsProvider.items[index].imageUrl,
-                      ),
-                      Divider(),
-                    ],
-                  ),
-                  itemCount: productsProvider.items.length,
-                )
-              : Center(
-                  child: Text(
-                    'You didn\'t add any product',
-                    style: TextStyle(
-                      color: colorPrimary,
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.bold,
+      body: FutureBuilder(
+        future: _refreshProducts(context),
+        builder: (context, snapshot) => snapshot.connectionState ==
+                ConnectionState.waiting
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : RefreshIndicator(
+                onRefresh: () {
+                  return _refreshProducts(context);
+                },
+                child: Consumer<ProductsProvider>(
+                  builder: (context, productsProvider, _) => Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: marginHorizontal,
+                      vertical: marginVertical,
                     ),
+                    child: productsProvider.items.length > 0
+                        ? ListView.builder(
+                            itemBuilder: (context, index) => Column(
+                              children: [
+                                UserProductItem(
+                                  id: productsProvider.items[index].id,
+                                  title: productsProvider.items[index].title,
+                                  imageUrl:
+                                      productsProvider.items[index].imageUrl,
+                                ),
+                                Divider(),
+                              ],
+                            ),
+                            itemCount: productsProvider.items.length,
+                          )
+                        : Center(
+                            child: Text(
+                              'You didn\'t add any product',
+                              style: TextStyle(
+                                color: colorPrimary,
+                                fontSize: 24.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
                   ),
                 ),
-        ),
+              ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

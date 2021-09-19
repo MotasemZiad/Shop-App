@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/providers/auth.dart';
 import 'package:shop_app/screens/orders_screen.dart';
-import 'package:shop_app/screens/products_overview_screen.dart';
 import 'package:shop_app/screens/user_products_screen.dart';
+import 'package:shop_app/shared/global_widgets.dart';
 import 'package:shop_app/utils/constants.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -30,10 +32,7 @@ class AppDrawer extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-              Navigator.pushReplacementNamed(
-                context,
-                ProductsOverviewScreen.routeName,
-              );
+              Navigator.pushReplacementNamed(context, '/');
             },
             // tileColor: colorPrimary.withOpacity(0.14),
             leading: Icon(
@@ -99,6 +98,46 @@ class AppDrawer extends StatelessWidget {
               Icons.arrow_forward_ios,
               color: colorPrimary,
             ),
+          ),
+          Spacer(),
+          ListTile(
+            onTap: () {
+              GlobalWidgets.presentDialog(
+                context: context,
+                text: 'Are you sure you want to logout from the app?',
+                title: 'Logout',
+                titleColor: Colors.red,
+                actionTitle1: 'Yes',
+                actionFunction1: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pushReplacementNamed('/');
+                  Provider.of<Auth>(context, listen: false).logout();
+                },
+                actionTitle2: 'No',
+                actionFunction2: () {
+                  Navigator.pop(context);
+                },
+              );
+            },
+            leading: Icon(
+              Icons.logout,
+              color: colorPrimary,
+              size: 30.0,
+            ),
+            title: Text(
+              'Logout',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            trailing: Icon(
+              Icons.arrow_forward_ios,
+              color: colorPrimary,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(bottom: 8.0),
           ),
         ],
       ),

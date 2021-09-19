@@ -68,20 +68,20 @@ class _OrderItemState extends State<OrderItem> {
                 horizontal: marginHorizontal,
                 vertical: marginVertical,
               ),
-              child: ListView.builder(
-                itemBuilder: (context, index) {
+              child: ListView(
+                children: products.map((e) {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        products[index].title,
+                        e.title,
                         style: TextStyle(
                           fontSize: 18.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        '${products[index].quantity}x \$${products[index].price}',
+                        '${e.quantity}x \$${e.price}',
                         style: TextStyle(
                           fontSize: 18.0,
                           color: Colors.grey,
@@ -89,8 +89,7 @@ class _OrderItemState extends State<OrderItem> {
                       ),
                     ],
                   );
-                },
-                itemCount: products.length,
+                }).toList(),
               ),
             ),
         ],
