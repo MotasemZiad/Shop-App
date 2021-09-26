@@ -14,38 +14,81 @@ class ProductDetailsScreen extends StatelessWidget {
       listen: false,
     ).findById(product.id);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(loadedProduct.title),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 300.0,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(2.0),
+                  color: Colors.black54,
+                ),
+                width: 320.0,
+                margin: EdgeInsets.only(right: 32.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 8.0,
+                  vertical: marginVertical,
+                ),
+                child: Text(
+                  loadedProduct.title,
+                  style: TextStyle(
+                    fontSize: 26.0,
+                    color: Colors.white,
+                  ),
+                  overflow: TextOverflow.fade,
+                  softWrap: true,
+                ),
+              ),
+              centerTitle: true,
+              background: Hero(
+                tag: loadedProduct.id,
+                child: Image.network(
+                  loadedProduct.imageUrl,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                SizedBox(
+                  height: 12.0,
+                ),
+                Text(
+                  '\$${loadedProduct.price.toStringAsFixed(2)}',
+                  style: TextStyle(
+                    color: Colors.green,
+                    fontSize: 18.0,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 12.0),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: marginHorizontal),
+                  width: double.infinity,
+                  child: Text(
+                    loadedProduct.description,
+                    textAlign: TextAlign.center,
+                    softWrap: true,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
-      body: SingleChildScrollView(
-          child: Column(children: [
-        Container(
-          height: 300.0,
-          width: double.infinity,
-          child: Image.network(
-            loadedProduct.imageUrl,
-            fit: BoxFit.cover,
-          ),
-        ),
-        SizedBox(height: 12.0),
-        Text(
-          '\$${loadedProduct.price.toStringAsFixed(2)}',
-          style: TextStyle(
-            color: Colors.green,
-            fontSize: 18.0,
-          ),
-          textAlign: TextAlign.center,
-        ),
-        SizedBox(height: 12.0),
-        Container(
-            padding: EdgeInsets.symmetric(horizontal: marginHorizontal),
-            width: double.infinity,
-            child: Text(
-              loadedProduct.description,
-              textAlign: TextAlign.center,
-              softWrap: true,
-            )),
-      ])),
     );
   }
 }

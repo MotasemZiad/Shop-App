@@ -6,19 +6,15 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Image.asset(
-            'assets/images/shop.png',
-            fit: BoxFit.cover,
-            width: 120.0,
-            height: 120.0,
+          Text(
+            'Loading...',
+            textAlign: TextAlign.center,
           ),
           SizedBox(
-            height: 4.0,
+            height: 6.0,
           ),
-          Text('Loading...'),
-          Spacer(),
           CircularProgressIndicator(),
         ],
       ),

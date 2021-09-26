@@ -11,7 +11,7 @@ class UserProductsScreen extends StatelessWidget {
   final String appBarTitle = 'Add Product';
 
   Future<void> _refreshProducts(BuildContext context) async {
-    return await Provider.of<ProductsProvider>(context, listen: false)
+    await Provider.of<ProductsProvider>(context, listen: false)
         .fetchProducts(true);
   }
 

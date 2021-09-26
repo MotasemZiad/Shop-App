@@ -19,51 +19,52 @@ class _OrderItemState extends State<OrderItem> {
   @override
   Widget build(BuildContext context) {
     final products = widget.order.products;
-    return Card(
-      margin: EdgeInsets.symmetric(
-        horizontal: marginHorizontal,
-        vertical: marginVertical,
-      ),
-      elevation: cardElevation,
-      child: Column(
-        children: [
-          ListTile(
-            title: Row(
-              children: [
-                Text(
-                  'Total: ',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.0,
+    return AnimatedContainer(
+      duration: Duration(milliseconds: animationDuration),
+      height: _isExpanded ? math.min(products.length * 20.0 + 120, 200) : 92.0,
+      child: Card(
+        margin: EdgeInsets.symmetric(
+          horizontal: marginHorizontal,
+          vertical: marginVertical,
+        ),
+        elevation: cardElevation,
+        child: Column(
+          children: [
+            ListTile(
+              title: Row(
+                children: [
+                  Text(
+                    'Total: ',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.0,
+                    ),
                   ),
-                ),
-                Text(
-                  '\$${widget.order.amount.toStringAsFixed(2)}',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: colorPrimary,
+                  Text(
+                    '\$${widget.order.amount.toStringAsFixed(2)}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: colorPrimary,
+                    ),
                   ),
-                ),
-              ],
-            ),
-            subtitle: Text(
-              DateFormat('dd/MM/yyyy hh:mm').format(widget.order.dateTime),
-            ),
-            trailing: IconButton(
-              icon: Icon(_isExpanded ? Icons.expand_less : Icons.expand_more),
-              onPressed: () {
-                setState(() {
-                  _isExpanded = !_isExpanded;
-                });
-              },
-            ),
-          ),
-          if (_isExpanded)
-            Container(
-              height: math.min(
-                products.length * 20.0 + 30,
-                100,
+                ],
               ),
+              subtitle: Text(
+                DateFormat('dd/MM/yyyy hh:mm').format(widget.order.dateTime),
+              ),
+              trailing: IconButton(
+                icon: Icon(_isExpanded ? Icons.expand_less : Icons.expand_more),
+                onPressed: () {
+                  setState(() {
+                    _isExpanded = !_isExpanded;
+                  });
+                },
+              ),
+            ),
+            AnimatedContainer(
+              duration: Duration(milliseconds: animationDuration),
+              height:
+                  _isExpanded ? math.min(products.length * 20.0 + 30, 100) : 0,
               padding: EdgeInsets.symmetric(
                 horizontal: marginHorizontal,
                 vertical: marginVertical,
@@ -92,7 +93,8 @@ class _OrderItemState extends State<OrderItem> {
                 }).toList(),
               ),
             ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -63,6 +63,10 @@ class ProductsProvider with ChangeNotifier {
     try {
       final response = await http.post(
         url,
+        body: product.toJson(),
+      );
+      final userProductsResponse = await http.post(
+        url,
         body: {
           'title': product.title,
           'description': product.description,
@@ -71,6 +75,8 @@ class ProductsProvider with ChangeNotifier {
           'creatorId': userId,
         },
       );
+      print(userProductsResponse.body);
+      print(userProductsResponse.statusCode);
       final newProduct = Product(
         id: json.decode(response.body)['name'],
         title: product.title,
@@ -111,14 +117,7 @@ class ProductsProvider with ChangeNotifier {
         final url = '$baseUrl/$productsNode/$id.json?auth=$authToken';
         await http.put(
           url,
-          body: {
-            'id': newProduct.id,
-            'title': newProduct.title,
-            'description': newProduct.description,
-            'imageUrl': newProduct.imageUrl,
-            'price': newProduct.price.toString(),
-            'creatorId': userId,
-          },
+          body: newProduct.toJson(),
         );
         _items[productIndex] = newProduct;
       } else {
