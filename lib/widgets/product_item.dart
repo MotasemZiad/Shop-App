@@ -41,7 +41,7 @@ class ProductItem extends StatelessWidget {
                     icon: Icon(
                       value.isFavorite ? Icons.favorite : Icons.favorite_border,
                       size: 22.0,
-                      color: Theme.of(context).accentColor,
+                      color: Color(0xFFFF0000),
                     ),
                     onPressed: () {
                       value.toggleFavorite(auth.token, auth.userId);
@@ -70,7 +70,7 @@ class ProductItem extends StatelessWidget {
               icon: Icon(
                 Icons.shopping_cart,
                 size: 22.0,
-                color: Theme.of(context).accentColor,
+                color: Theme.of(context).colorScheme.secondary,
               ),
               onPressed: () {
                 cart.addItem(

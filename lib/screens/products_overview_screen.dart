@@ -43,6 +43,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: colorPrimary,
         title: Text(appName),
         actions: [
           PopupMenuButton<FilterOptions>(

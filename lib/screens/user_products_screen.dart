@@ -19,6 +19,7 @@ class UserProductsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: colorPrimary,
         title: const Text('User Products'),
       ),
       drawer: AppDrawer(),

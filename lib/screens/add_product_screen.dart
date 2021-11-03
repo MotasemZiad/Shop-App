@@ -143,6 +143,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: colorPrimary,
         title: Text(_routeData['appBarTitle'] ?? appName),
       ),
       body: _isLoading

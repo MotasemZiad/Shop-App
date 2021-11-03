@@ -19,6 +19,7 @@ class ProductDetailsScreen extends StatelessWidget {
           SliverAppBar(
             expandedHeight: 300.0,
             pinned: true,
+            backgroundColor: colorPrimary,
             flexibleSpace: FlexibleSpaceBar(
               title: Container(
                 decoration: BoxDecoration(

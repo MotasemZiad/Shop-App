@@ -59,8 +59,7 @@ class AuthScreen extends StatelessWidget {
                       child: Text(
                         'My Shop',
                         style: TextStyle(
-                          color:
-                              Theme.of(context).accentTextTheme.headline6.color,
+                          color: Colors.white,
                           fontSize: 50,
                           fontFamily: 'Anton',
                           fontWeight: FontWeight.normal,
@@ -245,7 +244,7 @@ class _AuthCardState extends State<AuthCard>
             child: Column(
               children: <Widget>[
                 TextFormField(
-                  decoration: InputDecoration(labelText: 'E-Mail'),
+                  decoration: InputDecoration(labelText: 'Email'),
                   cursorColor: colorPrimary,
                   cursorHeight: cursorHeight,
                   keyboardType: TextInputType.emailAddress,

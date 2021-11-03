@@ -57,7 +57,10 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             primaryColor: colorPrimary,
-            accentColor: colorAccent,
+            colorScheme: ColorScheme.light(
+              primary: colorPrimary,
+              secondary: colorAccent,
+            ),
             fontFamily: 'Lato',
             pageTransitionsTheme: PageTransitionsTheme(
               builders: {
