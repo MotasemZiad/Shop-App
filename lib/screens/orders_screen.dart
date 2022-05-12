@@ -53,7 +53,8 @@ class OrdersScreen extends StatelessWidget {
                 );
               }
             }
-          }),
+          },
+        ),
     );
   }
 }

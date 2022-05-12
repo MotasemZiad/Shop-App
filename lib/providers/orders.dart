@@ -72,7 +72,9 @@ class Orders with ChangeNotifier {
                     'price': cartProduct.price,
                   })
               .toList(),
-        }));
+        },
+      ),
+    );
     _orders.insert(
       0,
       OrderItem(
