@@ -77,7 +77,7 @@ class UserProductsScreen extends StatelessWidget {
             arguments: {'appBarTitle': appBarTitle},
           );
         },
-        child: Icon(Icons.add),
+        child: Icon(Icons.add, color: Colors.white),
         backgroundColor: colorPrimary,
       ),
     );

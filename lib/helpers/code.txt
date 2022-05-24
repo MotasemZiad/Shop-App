@@ -1,0 +1,10 @@
+{
+  "rules": {
+      "products": {
+        ".indexOn": ["creatorId"]
+      }
+  }
+}
+
+// Last Rules 
+

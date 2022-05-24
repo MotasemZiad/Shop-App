@@ -10,7 +10,6 @@ import 'package:shop_app/utils/constants.dart';
 class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    print('Widget rebuild');
     return Consumer3<Product, Cart, Auth>(
       builder: (context, product, cart, auth, _) => ClipRRect(
         borderRadius: BorderRadius.circular(borderRadius),

@@ -11,7 +11,7 @@ class Auth with ChangeNotifier {
   String _token;
   DateTime _expiryDate;
   String _userId;
-  Timer _authTimer;
+  // Timer _authTimer;
 
   bool get isAuth {
     return token != null;
@@ -39,7 +39,6 @@ class Auth with ChangeNotifier {
             'returnSecureToken': true,
           }));
       final responseData = json.decode(response.body);
-      print(responseData);
       _token = responseData['idToken'];
       _expiryDate = DateTime.now().add(
         Duration(
@@ -49,7 +48,7 @@ class Auth with ChangeNotifier {
         ),
       );
       _userId = responseData['localId'];
-      _autoLogout();
+      // _autoLogout();
       final sharedPreferences = await SharedPreferences.getInstance();
       final userData = json.encode(
         {
@@ -92,7 +91,7 @@ class Auth with ChangeNotifier {
     _userId = extractedUserData['userId'];
     _expiryDate = expiryDate;
     notifyListeners();
-    _autoLogout();
+    // _autoLogout();
     return true;
   }
 
@@ -100,21 +99,21 @@ class Auth with ChangeNotifier {
     _token = null;
     _userId = null;
     _expiryDate = null;
-    if (_authTimer != null) {
-      _authTimer.cancel();
-      _authTimer = null;
-    }
+    // if (_authTimer != null) {
+    //   _authTimer.cancel();
+    //   _authTimer = null;
+    // }
     final prefs = await SharedPreferences.getInstance();
     prefs.remove('userData');
     prefs.clear();
     notifyListeners();
   }
 
-  void _autoLogout() {
-    if (_authTimer != null) {
-      _authTimer.cancel();
-    }
-    final timeToExpiry = _expiryDate.difference(DateTime.now()).inSeconds;
-    _authTimer = Timer(Duration(seconds: timeToExpiry), logout);
-  }
+  // void _autoLogout() {
+  //   if (_authTimer != null) {
+  //     _authTimer.cancel();
+  //   }
+  //   final timeToExpiry = _expiryDate.difference(DateTime.now()).inSeconds;
+  //   _authTimer = Timer(Duration(seconds: timeToExpiry), logout);
+  // }
 }
